@@ -1,4 +1,6 @@
 
+(setq custom-file "~/.config/emacs/custom.el")
+(load custom-file)
 
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
@@ -54,5 +56,3 @@
   )
 
 
-(setq custom-file "~/.config/emacs/custom.el")
-(load custom-file)
