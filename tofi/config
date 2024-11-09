@@ -1,0 +1,18 @@
+# Catppuccin Latte
+text-color = #4c4f69
+prompt-color = #d20f39
+selection-color = #df8e1d
+background-color = #eff1f5
+border-width = 0
+outline-width = 0
+result-spacing = 20
+font = monospace
+width = 50%
+height = 80%
+corner-radius = 24
+padding-top = 8
+padding-bottom = 8
+padding-left = 8
+padding-right = 8
+placeholder-text = "Emacs or emacs"
+placeholder-color = #7E7E7E
