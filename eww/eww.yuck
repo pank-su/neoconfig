@@ -1,0 +1,23 @@
+(defwidget time-battery-widget [time level]
+  (box :orientation "v" :spacing 2 :valign "center" :class "widget-container"
+    (label :text "${EWW_BATTERY.BAT0.capacity}% [${level}]${EWW_BATTERY.BAT0.status == 'Charging' ? '⚡️' : ''}"
+      :class "battery ${EWW_BATTERY.BAT0.capacity < 30 ? 'low' : (EWW_BATTERY.BAT0.capacity < 70 ? 'mid' : 'full')}")
+    (label :text time :class "time-label")
+    
+  ))
+
+(defpoll time :interval "10s" "date '+%H:%M'")
+
+
+
+
+(defpoll level :interval "30s" "capacity=$(cat /sys/class/power_supply/BAT0/capacity); printf '|%.0s' $(seq 1 $((capacity / 10))); printf ' %.0s' $(seq 1 $((10 - capacity / 10)))")
+
+
+(defwindow time-battery-window
+  :monitor 0
+  :geometry (geometry :width 140 :anchor "top right")
+  :exclusive false
+  :focusable false
+  :stackable false
+  (time-battery-widget :time time :level level ))
