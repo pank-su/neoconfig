@@ -16,3 +16,4 @@ padding-left = 8
 padding-right = 8
 placeholder-text = "Emacs or emacs"
 placeholder-color = #7E7E7E
+terminal="kitty"
