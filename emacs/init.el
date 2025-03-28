@@ -9,11 +9,21 @@
   :config (load-theme 'ef-summer :no-confirm)
   )
 
+(defun text-mode-company ()
+  "Настройки company для text mode"
+  (setq-local company-backends '((company-dabbrev company-yasnippet :separate) company-files)
+	      )
+  )
+
 (use-package company
   :ensure
   t
   :defer t
-  :init (add-hook 'after-init-hook 'global-company-mode))
+  :hook (
+	 (after-init . global-company-mode)
+	 (text-mode . text-mode-company)
+	 )
+  )
 
 (use-package typst-ts-mode
   :ensure t
@@ -149,7 +159,9 @@
   :config
   (nerd-icons-completion-mode))
 
-
+(use-package yascroll
+  :ensure t
+  :init (global-yascroll-bar-mode 1))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
