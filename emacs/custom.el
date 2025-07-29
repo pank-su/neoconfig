@@ -26,12 +26,14 @@
 		    "https://github.com/havarddj/typst-preview.el.git"
 		    :branch "main")))
  '(prog-mode-hook '(flyspell-prog-mode display-line-numbers-mode))
+ '(recentf-mode 1)
  '(save-place-mode t)
  '(scroll-bar-mode nil)
  '(text-mode-hook
    '(turn-on-flyspell turn-on-auto-fill text-mode-hook-identify))
  '(tool-bar-mode nil)
  '(warning-minimum-level :warning)
+ '(which-key-mode t)
  '(window-divider-default-bottom-width 1)
  '(yascroll:delay-to-hide 1))
 (custom-set-faces
