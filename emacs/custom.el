@@ -3,15 +3,17 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ispell-program-name "hunspell")
- '(ispell-dictionary "ru_RU,en_US")
- '(ispell-really-hunspell t)
- '(ispell-local-dictionary-alist '(("ru_RU,en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "ru_RU,en_US") nil utf-8)))
  '(delete-selection-mode t)
  '(display-battery-mode t)
  '(eglot-events-buffer-size 0)
  '(electric-pair-mode t)
  '(fancy-splash-image "~/.config/emacs/images/me.jpg")
+ '(ispell-dictionary "ru_RU,en_US")
+ '(ispell-local-dictionary-alist
+   '(("ru_RU,en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil
+      ("-d" "ru_RU,en_US") nil utf-8)))
+ '(ispell-program-name "hunspell")
+ '(ispell-really-hunspell t t)
  '(org-format-latex-options
    '(:foreground default :background default :scale 0.7 :html-foreground
 		 "Black" :html-background "Transparent" :html-scale
