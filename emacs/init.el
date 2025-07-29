@@ -15,6 +15,7 @@
 	      )
   )
 
+
 (use-package company
   :ensure
   t
@@ -47,6 +48,14 @@
   :defer t
   )
 
+(use-package diff-hl
+  :ensure t
+  :defer t
+  :config (global-diff-hl-mode))
+
+(use-package edit-indirect
+  :ensure t
+  :defer t)
 
 (use-package typst-preview
   :ensure t
@@ -76,6 +85,18 @@
   :custom (telega-root-default-view-function 'telega-view-two-lines)
   :commands (telega)
   )
+  
+
+
+(use-package telega
+  :ensure t
+  :defer
+  t
+  :custom (telega-root-default-view-function 'telega-view-two-lines)
+  :commands (telega)
+)
+
+
 
 
 
@@ -180,9 +201,6 @@
   :ensure t
   :init (global-yascroll-bar-mode 1))
 
-(use-package empv
-  :ensure t
-  :defer t)
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
