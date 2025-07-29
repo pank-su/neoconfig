@@ -9,21 +9,16 @@
   :config (load-theme 'ef-summer :no-confirm)
   )
 
-(defun text-mode-company ()
-  "Настройки company для text mode"
-  (setq-local company-backends '((company-dabbrev company-yasnippet :separate) company-files)
-	      )
-  )
 
 (use-package company
   :ensure
   t
   :defer t
   :hook (
-	 (after-init . global-company-mode)
-	 (text-mode . text-mode-company)
+	 (after-init-hook . global-company-mode)
 	 )
   )
+
 
 (use-package typst-ts-mode
   :ensure t
@@ -36,8 +31,11 @@
                `((typst-ts-mode) .
                  ,(eglot-alternatives `(,typst-ts-lsp-download-path
                                         "tinymist"
-                                        "typst-lsp"))))
+                                        ))))
   )
+
+
+
 
 (use-package diff-hl
   :ensure t
@@ -52,13 +50,23 @@
 	     '("melpa" . "https://melpa.org/packages/") t)
 
 
+(use-package kotlin-ts-mode
+  :ensure t
+  :defer t
+  :after eglot
+  :config (add-to-list 'eglot-server-programs `((kotlin-ts-mode) . ("~/Downloads/klsp/kotlin-lsp.sh" "--stdio")))
+  )
+  
+
+
 (use-package telega
   :ensure t
   :defer
   t
   :custom (telega-root-default-view-function 'telega-view-two-lines)
   :commands (telega)
-  )
+)
+
 
 
 
@@ -162,6 +170,14 @@
 (use-package yascroll
   :ensure t
   :init (global-yascroll-bar-mode 1))
+
+
+(use-package websocket
+  :ensure t)
+
+(use-package typst-preview
+  :after (websocket)
+  :load-path "./typst-preview.el")
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

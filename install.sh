@@ -4,4 +4,4 @@
 yay --noconfirm -Syu 
 
 # Install needed packages
-yay --noconfirm -S hyprland kitty firefox emacs-wayland aspell aspell-ru tofi hyprpaper
+yay --noconfirm -S hyprland ghostty firefox emacs-wayland hunspell hunspell-ru tofi hyprpaper
