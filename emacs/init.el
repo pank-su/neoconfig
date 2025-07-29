@@ -1,28 +1,82 @@
+(setq custom-file "~/.config/emacs/custom.el")
+(load custom-file)
 
 
 
+(use-package ef-themes
+  :ensure
+  t
+  :config (load-theme 'ef-frost :no-confirm)
+  )
+
+(defun text-mode-company ()
+  "Настройки company для text mode"
+  (setq-local company-backends '((company-dabbrev company-yasnippet :separate) company-files)
+	      )
+  )
 
 (use-package company
+  :ensure
+  t
+  :defer t
+  :custom (company-dabbrev-downcase nil)
+  :hook (
+	 (after-init . global-company-mode)
+	 (text-mode . text-mode-company)
+	 )
+  )
+
+
+;; Typst configuration
+(use-package typst-ts-mode
   :ensure t
   :defer t
-  :init (add-hook 'after-init-hook 'global-company-mode))
+  :custom
+  (typst-ts-mode-enable-raw-blocks-highlight t)
+  :after eglot
+  :config
+  (add-to-list 'eglot-server-programs
+               `((typst-ts-mode) .
+                 ,(eglot-alternatives `(,typst-ts-lsp-download-path
+                                        "tinymist"
+                                         ))))
+  )
 
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(use-package websocket
+  :ensure t
+  :defer t
+  )
+
+
+(use-package typst-preview
+  :ensure t
+  :after websocket
+  :defer t
+  :custom ((typst-preview-executable "tinymist preview")
+	   )
+  :vc (:url "https://github.com/havarddj/typst-preview.el.git" :branch main :rev :newest))
+
+(use-package diff-hl
+  :ensure t
+  :defer t
+  :config (global-diff-hl-mode))
+
+(use-package edit-indirect
+  :ensure t
+  :defer t)
+
+(add-to-list 'package-archives
+	     '("melpa" . "https://melpa.org/packages/") t)
 
 
 (use-package telega
-  :defer t
+  :ensure t
+  :defer
+  t
   :custom (telega-root-default-view-function 'telega-view-two-lines)
   :commands (telega)
   )
 
-
-(use-package catppuccin-theme
-  :ensure t
-  :init
-  (setq catppuccin-flavor 'macchiato)
-  (load-theme 'catppuccin :no-confirm)
-  )
 
 
 (use-package char-fold
@@ -33,20 +87,23 @@
 
 
 (use-package reverse-im
-  :ensure t ; install `reverse-im' using package.el
+  :ensure
+  t ; install `reverse-im' using package.el
   :demand t ; always load it
   :after char-fold ; but only after `char-fold' is loaded
 
   :custom
   ;; cache generated keymaps
-  (reverse-im-cache-file (locate-user-emacs-file "reverse-im-cache.el"))
+  (reverse-im-cache-file
+  (locate-user-emacs-file "reverse-im-cache.el"))
   ;; use lax matching
   (reverse-im-char-fold t)
   (reverse-im-read-char-advice-function #'reverse-im-read-char-include)
   ;; translate these methods
   (reverse-im-input-methods '("russian-computer"))
   :config
-  (reverse-im-mode t)) ; turn the mode on
+  (reverse-im-mode t))
+					; turn the mode on
 
 
 (use-package magit
@@ -60,12 +117,14 @@
   :init (yas-global-mode 1))
 
 (use-package yasnippet-snippets
-  :ensure t
+  :ensure
+  t
   :defer t
   :after yasnippet)
 
 (use-package cdlatex
-  :ensure t)
+  :ensure t
+  )
 
 (use-package org
   :after cdlatex
@@ -74,7 +133,8 @@
 
 
 (use-package eglot
-  :defer t
+  :defer
+  t
   :bind (("C-c e" . eglot)
 	 (:map eglot-mode-map
 	       ("S-<f2>" . eglot-rename)
@@ -90,60 +150,44 @@
   :ensure t
   )
 
-(use-package octave
-  :defer t
-  :custom (auto-mode-alist (cons '("\\.m$" . octave-mode) auto-mode-alist))
-  :hook (octave-mode-hook . (lambda ()
-            (abbrev-mode 1)
-            (auto-fill-mode 1)
-            (if (eq window-system 'x)
-                (font-lock-mode 1))))
- )
 
-
-(use-package engrave-faces
+(use-package treemacs
   :ensure t
   :defer t
-  :config (setq engrave-faces-preset-styles (engrave-faces-generate-preset)
-	       )
-  )
+  :custom
+  (treemacs-follow-mode t)
+  (treemacs-filewatch-mode t)
+  (treemacs-fringe-indicator-mode t))
 
-(use-package org
-  :defer t
-  :custom (org-latex-default-figure-position "H")
-  (org-export-default-language "ru")
-  
-  (org-latex-default-packages-alist
-   '(("AUTO" "inputenc" t
-      ("pdflatex"))
-     ("T2A" "fontenc" t
-      ("pdflatex"))
-     ("" "fontspec" t
-      ("xelatex"))
-     ("" "graphicx" t nil)
-     ("" "longtable" nil nil)
-     ("" "wrapfig" nil nil)
-     ("" "rotating" nil nil)
-     ("normalem" "ulem" t nil)
-     ("" "amsmath" t nil)
-     ("" "amssymb" t nil)
-     ("" "capt-of" nil nil)
-     ("" "hyperref" nil nil)))
-  )
+(use-package nerd-icons
+  :ensure t
+  :custom
+  (nerd-icons-font-family "JetBrainsMono Nerd Font")
+    )
 
+(use-package treemacs-nerd-icons
+  :after (treemacs nerd-icons)
+  :ensure t
+  :config (treemacs-load-theme "nerd-icons"))
 
-(use-package ox-gost
-  :after (org engrave-faces)
-  :load-path "./ox-gost"
-  :custom (org-gost-education-organization "ГУАП")
-  (org-gost-department "КАФЕДРА №1")
-  (org-gost-teacher-position "старший преподаватель")
-  (org-gost-city "Санкт-Петербург")
-  (org-gost-group "М412")
-)
+(use-package nerd-icons-completion
+  :after (nerd-icons)
+  :ensure t
+  :config
+  (nerd-icons-completion-mode))
 
+(use-package yascroll
+  :ensure t
+  :init (global-yascroll-bar-mode 1))
 
+(use-package empv
+  :ensure t
+  :defer t)
 
-(setq custom-file "~/.config/emacs/custom.el")
-(load custom-file)
-(put 'upcase-region 'disabled nil)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:family "JetBrainsMono Nerd Font" :foundry "JB" :slant normal :weight regular :height 128 :width normal)))))
+
