@@ -5,9 +5,10 @@
  ;; If there is more than one, they won't work right.
  '(delete-selection-mode t)
  '(display-battery-mode t)
+ '(display-time-24hr-format t)
+ '(display-time-mode t)
  '(eglot-events-buffer-size 0)
  '(electric-pair-mode t)
- '(fancy-splash-image "~/.config/emacs/images/me.jpg")
  '(ispell-dictionary "ru_RU,en_US")
  '(ispell-local-dictionary-alist
    '(("ru_RU,en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil
@@ -20,6 +21,10 @@
 		 1.0 :matchers ("begin" "$1" "$" "$$" "\\(" "\\[")))
  '(org-latex-caption-above '(table src-block))
  '(package-selected-packages nil)
+ '(package-vc-selected-packages
+   '((typst-preview :url
+		    "https://github.com/havarddj/typst-preview.el.git"
+		    :branch "main")))
  '(prog-mode-hook '(flyspell-prog-mode display-line-numbers-mode))
  '(save-place-mode t)
  '(scroll-bar-mode nil)

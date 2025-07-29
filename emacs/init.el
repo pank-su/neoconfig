@@ -6,7 +6,13 @@
 (use-package ef-themes
   :ensure
   t
-  :config (load-theme 'ef-summer :no-confirm)
+  :config (load-theme 'ef-frost :no-confirm)
+  )
+
+(defun text-mode-company ()
+  "Настройки company для text mode"
+  (setq-local company-backends '((company-dabbrev company-yasnippet :separate) company-files)
+	      )
   )
 
 
@@ -14,12 +20,15 @@
   :ensure
   t
   :defer t
+  :custom (company-dabbrev-downcase nil)
   :hook (
-	 (after-init-hook . global-company-mode)
+	 (after-init . global-company-mode)
+	 (text-mode . text-mode-company)
 	 )
   )
 
 
+;; Typst configuration
 (use-package typst-ts-mode
   :ensure t
   :defer t
@@ -31,11 +40,30 @@
                `((typst-ts-mode) .
                  ,(eglot-alternatives `(,typst-ts-lsp-download-path
                                         "tinymist"
-                                        ))))
+                                         ))))
   )
 
+(use-package websocket
+  :ensure t
+  :defer t
+  )
 
+(use-package diff-hl
+  :ensure t
+  :defer t
+  :config (global-diff-hl-mode))
 
+(use-package edit-indirect
+  :ensure t
+  :defer t)
+
+(use-package typst-preview
+  :ensure t
+  :after websocket
+  :defer t
+  :custom ((typst-preview-executable "tinymist preview")
+	   )
+  :vc (:url "https://github.com/havarddj/typst-preview.el.git" :branch main :rev :newest))
 
 (use-package diff-hl
   :ensure t
@@ -50,11 +78,12 @@
 	     '("melpa" . "https://melpa.org/packages/") t)
 
 
-(use-package kotlin-ts-mode
+(use-package telega
   :ensure t
-  :defer t
-  :after eglot
-  :config (add-to-list 'eglot-server-programs `((kotlin-ts-mode) . ("~/Downloads/klsp/kotlin-lsp.sh" "--stdio")))
+  :defer
+  t
+  :custom (telega-root-default-view-function 'telega-view-two-lines)
+  :commands (telega)
   )
   
 
@@ -66,6 +95,7 @@
   :custom (telega-root-default-view-function 'telega-view-two-lines)
   :commands (telega)
 )
+
 
 
 
@@ -86,7 +116,7 @@
   :custom
   ;; cache generated keymaps
   (reverse-im-cache-file
-   (locate-user-emacs-file "reverse-im-cache.el"))
+  (locate-user-emacs-file "reverse-im-cache.el"))
   ;; use lax matching
   (reverse-im-char-fold t)
   (reverse-im-read-char-advice-function #'reverse-im-read-char-include)
@@ -171,13 +201,6 @@
   :ensure t
   :init (global-yascroll-bar-mode 1))
 
-
-(use-package websocket
-  :ensure t)
-
-(use-package typst-preview
-  :after (websocket)
-  :load-path "./typst-preview.el")
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
