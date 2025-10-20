@@ -160,6 +160,12 @@
 (use-package eglot
   :defer
   t
+  :custom
+  (eglot-autoshutdown t)
+  (eglot-extend-to-xref t)
+  (eglot-sync-connect 1)
+  (eglot-connect-timeout 60)
+  (eglot-report-progress t)
   :bind (("C-c e" . eglot)
 	 (:map eglot-mode-map
 	       ("S-<f2>" . eglot-rename)
@@ -170,12 +176,22 @@
 	 )
   :config   (setq-default eglot-workspace-configuration '(:tinymist (:formatterMode "typstyle")))
 
+  
   )
 
 (use-package which-key
   :defer t
   :ensure t
   )
+
+(use-package kotlin-ts-mode
+  :defer t
+  :ensure t
+  :after (eglot)
+  :config
+  (add-to-list 'eglot-server-programs
+               '((kotlin-ts-mode kotlin-mode) . ("kotlin-lsp" "--stdio"))))
+
 
 
 (use-package treemacs
@@ -190,7 +206,13 @@
   :ensure t
   :custom
   (nerd-icons-font-family "JetBrainsMono Nerd Font")
-    )
+  )
+
+(use-package nerd-icons-dired
+  :ensure t
+  :defer t
+  :hook
+  (dired-mode . nerd-icons-dired-mode))
 
 (use-package treemacs-nerd-icons
   :after (treemacs nerd-icons)
