@@ -43,7 +43,7 @@ font-family = Jetbrains Mono
 # resize-overlay-duration = 4s 200ms
 
 
-theme = OneHalfLight
+theme = One Half Light
 
 
 cursor-style = block
