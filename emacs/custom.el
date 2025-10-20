@@ -28,13 +28,6 @@
 		  package-build reverse-im telega treemacs-all-the-icons
 		  treemacs-nerd-icons typst-preview typst-ts-mode websocket
 		  which-key yascroll yasnippet-snippets))
- '(package-vc-selected-packages
-   '((agent-shell :url "https://github.com/xenodium/agent-shell")
-	 (acp :url "https://github.com/xenodium/acp.el")
-	 (typst-preview :url
-   '((typst-preview :url
-					"https://github.com/havarddj/typst-preview.el.git"
-					:branch "main")))
  '(prog-mode-hook '(flyspell-prog-mode display-line-numbers-mode))
  '(recentf-mode 1)
  '(save-place-mode t)
