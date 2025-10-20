@@ -12,23 +12,26 @@
  '(ispell-dictionary "ru_RU,en_US")
  '(ispell-local-dictionary-alist
    '(("ru_RU,en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil
-      ("-d" "ru_RU,en_US") nil utf-8)))
+	  ("-d" "ru_RU,en_US") nil utf-8)))
  '(ispell-program-name "hunspell")
  '(ispell-really-hunspell t t)
  '(org-format-latex-options
    '(:foreground default :background default :scale 0.7 :html-foreground
-		 "Black" :html-background "Transparent" :html-scale
-		 1.0 :matchers ("begin" "$1" "$" "$$" "\\(" "\\[")))
+				 "Black" :html-background "Transparent" :html-scale
+				 1.0 :matchers ("begin" "$1" "$" "$$" "\\(" "\\[")))
  '(org-latex-caption-above '(table src-block))
  '(package-selected-packages nil)
  '(package-vc-selected-packages
-   '((typst-preview :url
-		    "https://github.com/havarddj/typst-preview.el.git"
-		    :branch "main")))
+   '((agent-shell :url "https://github.com/xenodium/agent-shell")
+	 (acp :url "https://github.com/xenodium/acp.el")
+	 (typst-preview :url
+					"https://github.com/havarddj/typst-preview.el.git"
+					:branch "main")))
  '(prog-mode-hook '(flyspell-prog-mode display-line-numbers-mode))
  '(recentf-mode 1)
  '(save-place-mode t)
  '(scroll-bar-mode nil)
+ '(tab-width 4)
  '(text-mode-hook
    '(turn-on-flyspell turn-on-auto-fill text-mode-hook-identify))
  '(tool-bar-mode nil)

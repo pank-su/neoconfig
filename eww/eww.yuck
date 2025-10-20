@@ -1,13 +1,18 @@
-(defwidget time-battery-widget [time level]
+(defwidget time-battery-widget [time level has-b]
   (box :orientation "v" :spacing 2 :valign "center" :class "widget-container"
-    (label :text "${EWW_BATTERY.BAT0.capacity}% [${level}]${EWW_BATTERY.BAT0.status == 'Charging' ? '⚡️' : ''}"
-      :class "battery ${EWW_BATTERY.BAT0.capacity < 30 ? 'low' : (EWW_BATTERY.BAT0.capacity < 70 ? 'mid' : 'full')}")
+    (literal :content {has-b ? "(battery-text)" : ""})
     (label :text time :class "time-label")
     
   ))
 
+(defwidget battery-text []
+  (label  :text "${EWW_BATTERY.BAT0.capacity}% [${level}]${EWW_BATTERY.BAT0.status == 'Charging' ? '⚡️' : ''}"
+      :class "battery  ${EWW_BATTERY.BAT0.capacity < 30 ? 'low' : (EWW_BATTERY.BAT0.capacity < 70 ? 'mid' : 'full')}")
+)
+
 (defpoll time :interval "10s" "date '+%H:%M'")
 
+(defvar has-battery "[ -e /sys/class/power_supply/BAT0 ] && echo true || echo false")
 
 
 
@@ -20,4 +25,5 @@
   :exclusive false
   :focusable false
   :stackable false
-  (time-battery-widget :time time :level level ))
+  
+  (time-battery-widget :time time :level level :has-b has-battery))

@@ -36,11 +36,15 @@
   (typst-ts-mode-enable-raw-blocks-highlight t)
   :after eglot
   :config
+  (with-eval-after-load 'eglot
+
   (add-to-list 'eglot-server-programs
                `((typst-ts-mode) .
                  ,(eglot-alternatives `(,typst-ts-lsp-download-path
                                         "tinymist"
-                                         ))))
+                                        ))))
+  )
+  
   )
 
 (use-package websocket
@@ -164,6 +168,8 @@
 	       ("C-c f" . xref-find-definitions)
 	       )
 	 )
+  :config   (setq-default eglot-workspace-configuration '(:tinymist (:formatterMode "typstyle")))
+
   )
 
 (use-package which-key
@@ -199,8 +205,29 @@
 
 (use-package yascroll
   :ensure t
+  :defer t
   :init (global-yascroll-bar-mode 1))
 
+(use-package kotlin-ts-mode
+  :ensure t
+  :defer t
+  :mode ("\\.kts?\\'" . kotlin-ts-mode))
+
+(use-package shell-maker
+  :ensure t
+  :defer t)
+
+(use-package acp
+  :after (shell-maker)
+  :ensure t
+  :defer t
+  :vc (:url "https://github.com/xenodium/acp.el"))
+
+(use-package agent-shell
+  :after (acp)
+  :ensure t
+  :defer t
+  :vc (:url "https://github.com/xenodium/agent-shell"))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
