@@ -21,13 +21,10 @@
 				 "Black" :html-background "Transparent" :html-scale
 				 1.0 :matchers ("begin" "$1" "$" "$$" "\\(" "\\[")))
  '(org-latex-caption-above '(table src-block))
- '(package-selected-packages
-   '(cask catppuccin-theme cdlatex company csv-mode diff-hl doom-modeline
-		  edit-indirect ef-themes engrave-faces kotlin-ts-mode magit
-		  markdown-mode nerd-icons-completion nerd-icons-dired
-		  package-build reverse-im telega treemacs-all-the-icons
-		  treemacs-nerd-icons typst-preview typst-ts-mode websocket
-		  which-key yascroll yasnippet-snippets))
+ '(package-selected-packages nil)
+ '(package-vc-selected-packages
+   '((agent-shell :url "https://github.com/xenodium/agent-shell")
+	 (acp :url "https://github.com/xenodium/acp.el")))
  '(prog-mode-hook '(flyspell-prog-mode display-line-numbers-mode))
  '(recentf-mode 1)
  '(save-place-mode t)

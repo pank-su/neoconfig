@@ -1,6 +1,6 @@
 (defwidget time-battery-widget [time level has-b]
   (box :orientation "v" :spacing 2 :valign "center" :class "widget-container"
-    (literal :content {has-b ? "(battery-text)" : ""})
+    (literal :content {true ? "(battery-text)" : ""})
     (label :text time :class "time-label")
     
   ))

@@ -208,11 +208,7 @@
   (nerd-icons-font-family "JetBrainsMono Nerd Font")
   )
 
-(use-package nerd-icons-dired
-  :ensure t
-  :defer t
-  :hook
-  (dired-mode . nerd-icons-dired-mode))
+
 
 (use-package treemacs-nerd-icons
   :after (treemacs nerd-icons)
@@ -250,6 +246,67 @@
   :ensure t
   :defer t
   :vc (:url "https://github.com/xenodium/agent-shell"))
+
+
+(use-package dired
+  :config
+  (setq dired-listing-switches
+        "-l --almost-all --human-readable --group-directories-first --no-group")
+  ;; this command is useful when you want to close the window of `dirvish-side'
+  ;; automatically when opening a file
+  (put 'dired-find-alternate-file 'disabled nil))
+
+(use-package dirvish
+  :init  (dirvish-override-dired-mode)
+  :custom
+  (dirvish-quick-access-entries
+   '(
+	 ("g" "~/Documents/guap-2/" "Guap notes")
+	 ("l" "~/Documents/labs-2/" "Guap labs")
+	 ))
+  :config
+  (setq dirvish-side-attributes
+		'(vc-state nerd-icons collapse file-size))
+  (setq dired-mouse-drag-files t)
+  (setq mouse-drag-and-drop-region-cross-program t)
+  (setq mouse-1-click-follows-link nil)
+  :bind
+  (("C-c f" . dirvish-side)
+   :map dirvish-mode-map
+   ("y"   . dirvish-yank-menu)
+   ("TAB" . dirvish-subtree-toggle)
+   ("<mouse-1>" . dirvish-subtree-toggle-or-open))
+  )
+
+(use-package project
+  :bind (:map project-prefix-map
+			  ("f" . dirvish-side))
+  )
+
+
+(use-package dashboard
+  :ensure t
+  :custom (dashboard-banner-logo-title nil)
+  (dashboard-items '((projects  . 5)
+					 (recents . 5)))
+  (dashboard-center-content t)
+  (dashboard-display-icons-p t)
+  (dashboard-icon-type 'nerd-icons)
+  (dashboard-set-heading-icons t)
+  (dashboard-icon-file-v-adjust -0.1)
+  (dashboard-heading-icon-v-adjust -0.05)
+
+  (dashboard-item-shortcuts '((recents   . "r")
+                                 (bookmarks . "m")
+                                 (projects  . "g")
+                                 (agenda    . "a")
+                                 (registers . "e")))
+  :bind (:map dashboard-mode-map
+			  ("n" . dashboard-next-line)
+			  ("p" . dashboard-previous-line)
+			  )
+  :init
+  (dashboard-setup-startup-hook))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
